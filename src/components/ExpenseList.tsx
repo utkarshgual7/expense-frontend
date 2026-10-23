@@ -3,7 +3,7 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { deleteExpense, listExpenses } from "@/services/expenses.service";
-import { CATEGORY_COLOR, money, shortDate } from "@/lib/categories";
+import { CATEGORY_COLOR, CURRENCY, money, shortDate } from "@/lib/categories";
 import { CATEGORIES, type Category } from "@/shared/expense";
 
 const LIMIT = 10;
@@ -100,6 +100,7 @@ export default function ExpenseList() {
               <span>
                 <span className="mr-1.5">Total</span>
                 <span className="text-[1.0625rem] font-semibold tabular-nums text-ink">
+                  <span className="mr-0.5 font-normal">{CURRENCY}</span>
                   {money(data.total_amount)}
                 </span>
               </span>
@@ -137,6 +138,7 @@ export default function ExpenseList() {
                       </div>
                       <div className="flex items-center gap-1 sm:gap-2">
                         <span className="text-[0.9375rem] font-semibold tabular-nums">
+                          <span className="mr-0.5 font-normal text-ink-faint">{CURRENCY}</span>
                           {money(e.amount)}
                         </span>
                         <button

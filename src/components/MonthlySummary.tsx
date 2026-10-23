@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { getSummary } from "@/services/expenses.service";
-import { CATEGORY_COLOR, money } from "@/lib/categories";
+import { CATEGORY_COLOR, CURRENCY, money } from "@/lib/categories";
 import { useToday } from "@/lib/today";
 import { CATEGORIES } from "@/shared/expense";
 
@@ -59,6 +59,7 @@ export default function MonthlySummary() {
             <p className="flex items-baseline justify-between gap-3">
               <span className="text-[0.8125rem] text-ink-soft">Total this month</span>
               <span className="text-[1.5rem] font-semibold leading-none tracking-[-0.02em] tabular-nums">
+                <span className="mr-0.5 font-normal">{CURRENCY}</span>
                 {money(data.total)}
               </span>
             </p>
@@ -84,6 +85,7 @@ export default function MonthlySummary() {
                           <span className="capitalize">{c}</span>
                         </dt>
                         <dd className="text-[0.875rem] font-semibold tabular-nums">
+                          <span className="mr-0.5 font-normal text-ink-faint">{CURRENCY}</span>
                           {money(value)}
                           <span className="ml-2 font-normal text-ink-faint">{share}%</span>
                         </dd>

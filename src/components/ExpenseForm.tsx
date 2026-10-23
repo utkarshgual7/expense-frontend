@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { createExpense } from "@/services/expenses.service";
-import { CATEGORY_COLOR } from "@/lib/categories";
+import { CURRENCY, CATEGORY_COLOR } from "@/lib/categories";
 import { useToday } from "@/lib/today";
 import { CATEGORIES, createExpenseSchema } from "@/shared/expense";
 
@@ -108,20 +108,29 @@ function Form({ today }: { today: string }) {
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="amount" className={labelCls}>
-            Amount
+            Amount (INR)
           </label>
-          <input
-            id="amount"
-            type="number"
-            step="0.01"
-            min="0"
-            inputMode="decimal"
-            placeholder="0.00"
-            className={`${field} text-right tabular-nums`}
-            aria-invalid={!!errors.amount}
-            aria-describedby={errors.amount ? "amount-error" : undefined}
-            {...register("amount", { valueAsNumber: true })}
-          />
+          <div className="relative">
+            {/* Decorative: the label already says INR, so the glyph is hidden from AT. */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-faint"
+            >
+              {CURRENCY}
+            </span>
+            <input
+              id="amount"
+              type="number"
+              step="0.01"
+              min="0"
+              inputMode="decimal"
+              placeholder="0.00"
+              className={`${field} pl-8 text-right tabular-nums`}
+              aria-invalid={!!errors.amount}
+              aria-describedby={errors.amount ? "amount-error" : undefined}
+              {...register("amount", { valueAsNumber: true })}
+            />
+          </div>
           {errors.amount && (
             <p id="amount-error" className={errorText}>
               <WarningIcon />
